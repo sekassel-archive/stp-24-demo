@@ -13,6 +13,7 @@ import org.fulib.fx.annotation.controller.Controller;
 import org.fulib.fx.annotation.controller.Title;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 @Controller
 @Title("Login")
@@ -47,7 +48,9 @@ public class LoginController {
     }
 
     public void signup() {
-        app.show("/signup");
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+        app.show("/signup", Map.of("username", username, "password", password));
     }
 
     public void setDe(ActionEvent actionEvent) {

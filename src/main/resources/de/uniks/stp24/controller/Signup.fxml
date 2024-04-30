@@ -19,7 +19,7 @@
                 <Label text="repeat password" labelFor="$repeatPasswordInput"/>
                 <PasswordField fx:id="repeatPasswordInput"/>
                 <Text fx:id="errorLabel" styleClass="warning"/>
-                <Button fx:id="registerButton" mnemonicParsing="false" onAction="#signUp" text="signup"
+                <Button fx:id="signupButton" mnemonicParsing="false" onAction="#signUp" text="signup"
                         defaultButton="true"/>
                 <Hyperlink onAction="#login" text="back to login"/>
             </children>
