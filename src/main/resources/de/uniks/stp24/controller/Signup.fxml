@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.uniks.stp24.controller.SignupController">
+    <center>
+        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+              styleClass="container,overlay-container">
+            <children>
+                <Text styleClass="large" text="signup"/>
+                <Label text="username" labelFor="$usernameInput"/>
+                <TextField fx:id="usernameInput"/>
+                <Label text="password" labelFor="$passwordInput"/>
+                <PasswordField fx:id="passwordInput"/>
+                <Label text="repeat password" labelFor="$repeatPasswordInput"/>
+                <PasswordField fx:id="repeatPasswordInput"/>
+                <Text fx:id="errorLabel" styleClass="warning"/>
+                <Button fx:id="registerButton" mnemonicParsing="false" onAction="#signUp" text="signup"
+                        defaultButton="true"/>
+                <Hyperlink onAction="#login" text="back to login"/>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
