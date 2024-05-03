@@ -28,6 +28,9 @@ dependencies {
 
     implementation group: "fr.brouillard.oss", name: "cssfx", version: cssFxVersion
 
+    // https://mvnrepository.com/artifact/com.github.robtimus/data-url
+    implementation group: 'com.github.robtimus', name: 'data-url', version: '2.0'
+
     // REST
 
     implementation group: "com.squareup.retrofit2", name: "retrofit", version: retrofitVersion

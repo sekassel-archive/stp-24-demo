@@ -1,6 +1,7 @@
 package de.uniks.stp24.component;
 
 import de.uniks.stp24.model.User;
+import de.uniks.stp24.service.ImageCache;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,6 +21,9 @@ public class UserComponent extends HBox implements ReusableItemComponent<User> {
     Text nameText;
 
     @Inject
+    ImageCache imageCache;
+
+    @Inject
     public UserComponent() {
 
     }
@@ -27,5 +31,11 @@ public class UserComponent extends HBox implements ReusableItemComponent<User> {
     @Override
     public void setItem(@NotNull User user) {
         nameText.setText(user.name());
+
+        if (user.avatar() != null) {
+            avatarView.setImage(imageCache.get(user.avatar()));
+        } else {
+            avatarView.setImage(imageCache.get("icon.png"));
+        }
     }
 }
