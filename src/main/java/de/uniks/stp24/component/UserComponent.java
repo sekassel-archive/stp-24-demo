@@ -21,7 +21,7 @@ public class UserComponent extends HBox implements ReusableItemComponent<User> {
     Text nameText;
 
     @Inject
-    ImageCache imageCache;
+    public ImageCache imageCache;
 
     @Inject
     public UserComponent() {

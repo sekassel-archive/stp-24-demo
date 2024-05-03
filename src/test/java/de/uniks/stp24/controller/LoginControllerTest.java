@@ -32,7 +32,7 @@ class LoginControllerTest extends ControllerTest {
 
     @Test
     void login() {
-        doReturn(Observable.just(new LoginResult("1", "a"))).when(loginService).login(any(), any());
+        doReturn(Observable.just(new LoginResult("1", "a", "r"))).when(loginService).login(any(), any(), any());
         doReturn(null).when(app).show("/main-menu");
 
         // Start:
@@ -51,7 +51,7 @@ class LoginControllerTest extends ControllerTest {
         // Result:
         // Alice is now logged in.
         // She sees the main menu.
-        verify(loginService, times(1)).login("alice123", "hunter2");
+        verify(loginService, times(1)).login("alice123", "hunter2", false);
         verify(app, times(1)).show("/main-menu");
     }
 }

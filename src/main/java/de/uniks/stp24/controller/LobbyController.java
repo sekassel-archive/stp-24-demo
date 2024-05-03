@@ -65,10 +65,12 @@ public class LobbyController {
 
     @OnRender
     void render() {
+        joinButton.disableProperty().bind(userList.getSelectionModel().selectedItemProperty().isNull());
         userList.setItems(users);
         userList.setCellFactory(list -> new ComponentListCell<>(app, userComponentProvider));
     }
 
     public void join() {
+        System.out.println(userList.getSelectionModel().getSelectedItem());
     }
 }
