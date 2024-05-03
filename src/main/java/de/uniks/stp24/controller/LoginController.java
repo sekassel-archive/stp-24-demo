@@ -39,8 +39,9 @@ public class LoginController {
     public void login() {
         String username = usernameInput.getText();
         String password = passwordInput.getText();
+        boolean rememberMe = this.rememberMe.isSelected();
 
-        loginService.login(username, password)
+        loginService.login(username, password, rememberMe)
             .subscribe(result -> {
                 System.out.println(result);
                 app.show("/main-menu");

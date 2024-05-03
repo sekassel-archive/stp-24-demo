@@ -49,13 +49,16 @@ public class App extends FulibFxApp {
             primaryStage.setHeight(800);
 
             // TODO add image/icon.png and uncomment
-            // setAppIcon(primaryStage);
+            setAppIcon(primaryStage);
             // setTaskbarIcon();
 
             autoRefresher().setup(Path.of("src/main/resources/de/uniks/stp24"));
 
-            show("/login");
-
+            if (component.loginService().autoLogin()) {
+                show("/main-menu");
+            } else {
+                show("/login");
+            }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "An error occurred while starting the application: " + e.getMessage(), e);
         }
@@ -63,7 +66,7 @@ public class App extends FulibFxApp {
 
 
     private void setAppIcon(Stage stage) {
-        final Image image = new Image(App.class.getResource("image/icon.png").toString());
+        final Image image = component.imageCache().get("icon.png");
         stage.getIcons().add(image);
     }
 
