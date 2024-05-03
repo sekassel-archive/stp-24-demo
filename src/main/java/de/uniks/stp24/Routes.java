@@ -1,5 +1,6 @@
 package de.uniks.stp24;
 
+import de.uniks.stp24.controller.LobbyController;
 import de.uniks.stp24.controller.LoginController;
 import de.uniks.stp24.controller.SignupController;
 import org.fulib.fx.annotation.Route;
@@ -17,6 +18,10 @@ public class Routes {
     @Route("signup")
     @Inject
     Provider<SignupController> signup;
+
+    @Route("main-menu")
+    @Inject
+    Provider<LobbyController> lobby;
 
     @Inject
     public Routes() {

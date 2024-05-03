@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="de.uniks.stp24.component.UserComponent">
+    <ImageView fx:id="avatarView" fitWidth="50" fitHeight="50"/>
+    <Text fx:id="nameText"/>
+</fx:root>
