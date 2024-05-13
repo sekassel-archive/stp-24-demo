@@ -15,13 +15,15 @@ public class ControllerTest extends ApplicationTest {
     protected final ResourceBundle resources = ResourceBundle.getBundle("de/uniks/stp24/lang/main", Locale.ROOT);
 
     protected Stage stage;
+    protected TestComponent testComponent;
 
     @Override
     public void start(Stage stage) throws Exception {
-        app.setComponent(DaggerTestComponent.builder().mainApp(app).build());
         super.start(stage);
         this.stage = stage;
-        stage.requestFocus();
+        testComponent = (TestComponent) DaggerTestComponent.builder().mainApp(app).build();
+        app.setComponent(testComponent);
         app.start(stage);
+        stage.requestFocus();
     }
 }

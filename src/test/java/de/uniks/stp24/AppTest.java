@@ -1,26 +1,45 @@
 package de.uniks.stp24;
 
-import javafx.stage.Stage;
+import de.uniks.stp24.dto.LoginDto;
+import de.uniks.stp24.dto.LoginResult;
+import de.uniks.stp24.dto.RefreshDto;
+import de.uniks.stp24.model.User;
+import de.uniks.stp24.rest.AuthApiService;
+import de.uniks.stp24.rest.UserApiService;
+import io.reactivex.rxjava3.core.Observable;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Spy;
-import org.testfx.framework.junit5.ApplicationTest;
+import org.mockito.Mockito;
 
-public class AppTest extends ApplicationTest {
+import java.util.List;
 
-    @Spy
-    public final App app = new App();
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testfx.util.WaitForAsyncUtils.waitForFxEvents;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        super.start(stage);
-        app.setComponent(DaggerTestComponent.builder().mainApp(app).build());
-        app.start(stage);
-        stage.requestFocus();
+public class AppTest extends ControllerTest {
+    @BeforeEach
+    void setup() {
+        final AuthApiService authApiService = testComponent.authApiService();
+
+        Mockito.doReturn(Observable.just(new LoginResult("1", "a", "r")))
+            .when(authApiService).login(new LoginDto("alice", "hunter2"));
+        Mockito.doReturn(Observable.just(new LoginResult("1", "a", "r")))
+            .when(authApiService).refresh(new RefreshDto("r"));
+
+        final UserApiService userApiService = testComponent.userApiService();
+        Mockito.doReturn(Observable.just(List.of(new User("1", "alice", null), new User("2", "bob", null))))
+            .when(userApiService).findAll();
+
     }
 
     @Test
     public void v1() {
-        // TODO login, main-menu, ...
+        waitForFxEvents();
+
+        assertEquals("Login", stage.getTitle());
+
+        clickOn("#usernameInput");
+        write("alice\thunter2\n");
     }
 
 }
