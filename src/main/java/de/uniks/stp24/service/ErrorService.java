@@ -2,6 +2,7 @@ package de.uniks.stp24.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.uniks.stp24.dto.ErrorResponse;
+import de.uniks.stp24.exception.ErrorResponseException;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
@@ -17,17 +18,19 @@ public class ErrorService {
     }
 
     public int getStatus(Throwable ex) {
-        if (ex instanceof HttpException httpEx) {
-            return httpEx.code();
-        }
-        return -1;
+        return switch (ex) {
+            case HttpException httpEx -> httpEx.code();
+            case ErrorResponseException errorResponseEx -> errorResponseEx.getResponse().statusCode();
+            default -> -1;
+        };
     }
 
     public String getMessage(Throwable ex) {
-        if (ex instanceof HttpException httpEx) {
-            return String.join("\n", getErrorResponse(httpEx).message());
-        }
-        return ex.getLocalizedMessage();
+        return switch (ex) {
+            case HttpException httpEx -> String.join("\n", getErrorResponse(httpEx).message());
+            case ErrorResponseException errorResponseException -> errorResponseException.getMessage();
+            default -> ex.getLocalizedMessage();
+        };
     }
 
     public ErrorResponse getErrorResponse(HttpException httpEx) {
