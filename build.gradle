@@ -77,7 +77,7 @@ compileJava {
 
 javafx {
     version = javaFxVersion
-    modules = ['javafx.controls', 'javafx.graphics', 'javafx.fxml', 'javafx.media']
+    modules = ['javafx.controls', 'javafx.graphics', 'javafx.fxml', 'javafx.media', 'javafx.swing']
 }
 
 jacoco {
