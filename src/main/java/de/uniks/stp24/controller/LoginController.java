@@ -2,6 +2,7 @@ package de.uniks.stp24.controller;
 
 import de.uniks.stp24.App;
 import de.uniks.stp24.dto.LoginDto;
+import de.uniks.stp24.service.ErrorService;
 import de.uniks.stp24.service.LoginService;
 import de.uniks.stp24.service.PrefService;
 import javafx.event.ActionEvent;
@@ -47,6 +48,8 @@ public class LoginController {
     ResourceBundle gameResources;
     @Inject
     PrefService prefService;
+    @Inject
+    ErrorService errorService;
 
     @Inject
     public LoginController() {
@@ -61,6 +64,12 @@ public class LoginController {
             .subscribe(result -> {
                 System.out.println(result);
                 app.show("/main-menu");
+            }, error -> {
+                switch (errorService.getStatus(error)) {
+                    case 401 -> errorLabel.setText(resources.getString("login.failed"));
+                    case 429 -> errorLabel.setText(resources.getString("login.ratelimit"));
+                    default -> errorLabel.setText(errorService.getMessage(error));
+                }
             });
     }
 
