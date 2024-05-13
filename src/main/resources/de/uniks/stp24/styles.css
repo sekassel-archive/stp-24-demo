@@ -1,1 +1,74 @@
+/* https://openjfx.io/javadoc/21/javafx.graphics/javafx/scene/doc-files/cssref.html */
+
 /* TODO add CSS */
+.root {
+    -fx-font-size: 16;
+    -fx-background-color: #111;
+}
+
+.label, .check-box {
+    -fx-text-fill: #eee;
+}
+
+Text {
+    -fx-fill: #eee;
+}
+
+Text.large {
+    -fx-font-size: 24;
+}
+
+.warning {
+    -fx-text-fill: orange;
+}
+Text.warning {
+    -fx-fill: orange;
+}
+
+.check-box .box {
+    -fx-background-color: gray;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #0075ff;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.text-field {
+    -fx-background-color: #444;
+    -fx-text-fill: white;
+}
+
+.hyperlink {
+    -fx-text-fill: #7775ff;
+}
+
+.container {
+    -fx-spacing: 2;
+    -fx-padding: 5;
+    -fx-border-color: white;
+    -fx-border-radius: 2;
+}
+
+.button, .toggle-button {
+    -fx-text-fill: white;
+    -fx-background-color: none;
+    -fx-padding: 0;
+    -fx-border-image-source: url('wenrexa-ui/buttons/normal.png');
+    -fx-border-image-slice: 18px fill;
+    -fx-border-image-insets: 0px;
+    -fx-border-image-repeat: repeat;
+    -fx-border-image-width: 9px;
+}
+.button:hover, .toggle-button:hover {
+    -fx-border-image-source: url('wenrexa-ui/buttons/hover.png');
+}
+.button:focused, .toggle-button:focused, .button.active, .toggle-button.active {
+    -fx-border-image-source: url('wenrexa-ui/buttons/active.png');
+}
+.button:disabled, .toggle-button:disabled {
+    -fx-border-image-source: url('wenrexa-ui/buttons/disabled.png');
+}

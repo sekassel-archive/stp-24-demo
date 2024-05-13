@@ -12,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -21,6 +24,7 @@ import static org.testfx.util.WaitForAsyncUtils.waitForFxEvents;
 class LoginControllerTest extends ControllerTest {
     @Spy
     LoginService loginService;
+
     @InjectMocks
     LoginController loginController;
 

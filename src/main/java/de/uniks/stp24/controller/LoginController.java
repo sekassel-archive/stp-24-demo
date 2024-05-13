@@ -3,6 +3,7 @@ package de.uniks.stp24.controller;
 import de.uniks.stp24.App;
 import de.uniks.stp24.dto.LoginDto;
 import de.uniks.stp24.service.LoginService;
+import de.uniks.stp24.service.PrefService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -10,10 +11,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.fulib.fx.annotation.controller.Controller;
+import org.fulib.fx.annotation.controller.Resource;
 import org.fulib.fx.annotation.controller.Title;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Provider;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @Controller
 @Title("Login")
@@ -31,6 +37,16 @@ public class LoginController {
     App app;
     @Inject
     LoginService loginService;
+    @Inject
+    @Resource
+    ResourceBundle resources;
+    @Inject
+    Provider<ResourceBundle> newResources;
+    @Inject
+    @Named("game-resources")
+    ResourceBundle gameResources;
+    @Inject
+    PrefService prefService;
 
     @Inject
     public LoginController() {
@@ -54,9 +70,17 @@ public class LoginController {
         app.show("/signup", Map.of("username", username, "password", password));
     }
 
-    public void setDe(ActionEvent actionEvent) {
+    public void setDe() {
+        setLocale(Locale.GERMAN);
     }
 
-    public void setEn(ActionEvent actionEvent) {
+    public void setEn() {
+        setLocale(Locale.ENGLISH);
+    }
+
+    private void setLocale(Locale english) {
+        prefService.setLocale(english);
+        resources = newResources.get();
+        app.refresh();
     }
 }

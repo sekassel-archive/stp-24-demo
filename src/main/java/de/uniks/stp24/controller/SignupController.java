@@ -11,11 +11,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.fulib.fx.annotation.controller.Controller;
+import org.fulib.fx.annotation.controller.Resource;
 import org.fulib.fx.annotation.event.OnInit;
 import org.fulib.fx.annotation.event.OnRender;
 import org.fulib.fx.annotation.param.Param;
 
 import javax.inject.Inject;
+import java.util.ResourceBundle;
 
 @Controller
 public class SignupController {
@@ -29,6 +31,9 @@ public class SignupController {
     App app;
     @Inject
     UserApiService userApiService;
+    @Inject
+    @Resource
+    ResourceBundle resources;
 
     @Param("username")
     String username;
@@ -60,9 +65,9 @@ public class SignupController {
              */
             Bindings.createStringBinding(() -> {
                 if (!equalPasswords.get()) {
-                    return "passwords do not match";
+                    return resources.getString("passwords.not.match");
                 } else if (!usernameNotEmpty.get()) {
-                    return "username must be set";
+                    return resources.getString("username.not.set");
                 } else {
                     return "";
                 }
