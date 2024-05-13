@@ -1,19 +1,15 @@
 package de.uniks.stp24.controller;
 
+import de.uniks.stp24.ControllerTest;
 import de.uniks.stp24.dto.LoginResult;
-import de.uniks.stp24.rest.AuthApiService;
 import de.uniks.stp24.service.LoginService;
 import io.reactivex.rxjava3.core.Observable;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,7 +32,7 @@ class LoginControllerTest extends ControllerTest {
 
     @Test
     void login() {
-        doReturn(Observable.just(new LoginResult("1", "a", "r"))).when(loginService).login(any(), any(), any());
+        doReturn(Observable.just(new LoginResult("1", "a", "r"))).when(loginService).login(any(), any(), anyBoolean());
         doReturn(null).when(app).show("/main-menu");
 
         // Start:
@@ -48,7 +44,7 @@ class LoginControllerTest extends ControllerTest {
         // Alice enters her username "alice123" and her password "hunter2". She clicks "Log In".
         write("alice123\t");
         write("hunter2\t");
-        clickOn("login");
+        clickOn("Login");
 
         waitForFxEvents();
 

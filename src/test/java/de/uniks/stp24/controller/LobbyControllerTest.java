@@ -1,5 +1,6 @@
 package de.uniks.stp24.controller;
 
+import de.uniks.stp24.ControllerTest;
 import de.uniks.stp24.component.UserComponent;
 import de.uniks.stp24.model.User;
 import de.uniks.stp24.rest.UserApiService;
@@ -21,13 +22,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.util.WaitForAsyncUtils;
 
 import javax.inject.Provider;
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class LobbyControllerTest extends ControllerTest{
+class LobbyControllerTest extends ControllerTest {
     @Mock
     EventListener eventListener;
     @Mock
