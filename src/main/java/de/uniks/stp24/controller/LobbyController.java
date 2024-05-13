@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import org.fulib.fx.annotation.controller.Controller;
+import org.fulib.fx.annotation.controller.Title;
 import org.fulib.fx.annotation.event.OnDestroy;
 import org.fulib.fx.annotation.event.OnInit;
 import org.fulib.fx.annotation.event.OnRender;
@@ -23,6 +24,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 @Controller
+@Title("Main Menu")
 public class LobbyController {
     @Inject
     App app;

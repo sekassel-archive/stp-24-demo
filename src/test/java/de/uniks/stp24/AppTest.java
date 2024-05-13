@@ -40,6 +40,10 @@ public class AppTest extends ControllerTest {
 
         clickOn("#usernameInput");
         write("alice\thunter2\n");
+
+        assertEquals("Main Menu", stage.getTitle());
+
+        // TODO do something in main menu
     }
 
 }
