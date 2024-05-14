@@ -22,6 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static org.fulib.fx.FulibFxApp.FX_SCHEDULER;
+
 @Controller
 @Title("Login")
 public class LoginController {
@@ -61,6 +63,7 @@ public class LoginController {
         boolean rememberMe = this.rememberMe.isSelected();
 
         loginService.login(username, password, rememberMe)
+            .observeOn(FX_SCHEDULER)
             .subscribe(result -> {
                 System.out.println(result);
                 app.show("/main-menu");
