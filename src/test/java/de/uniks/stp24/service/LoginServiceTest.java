@@ -2,18 +2,17 @@ package de.uniks.stp24.service;
 
 import de.uniks.stp24.dto.LoginDto;
 import de.uniks.stp24.dto.LoginResult;
+import de.uniks.stp24.dto.RefreshDto;
 import de.uniks.stp24.rest.AuthApiService;
 import io.reactivex.rxjava3.core.Observable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class LoginServiceTest {
@@ -54,5 +53,30 @@ class LoginServiceTest {
 
         // refresh token should be stored in PrefService
         Mockito.verify(prefService).setRefreshToken("r");
+    }
+
+    // see https://www.baeldung.com/mockito-argumentcaptor
+    @Captor
+    ArgumentCaptor<RefreshDto> refreshDtoCaptor;
+
+    @Test
+    void autoLogin() {
+        when(prefService.getRefreshToken()).thenReturn("r");
+        when(authApiService.refresh(any())).thenReturn(Observable.just(new LoginResult("1", "a", "r")));
+
+        boolean result = loginService.autoLogin();
+        assertTrue(result);
+
+        // TokenStorage should have the correct data
+        assertEquals("1", tokenStorage.getUserId());
+        assertEquals("a", tokenStorage.getToken());
+
+        // refresh token should be stored in PrefService
+        Mockito.verify(prefService).setRefreshToken("r");
+
+        // AuthApiService.refresh should have been called with the previous refresh token
+        Mockito.verify(authApiService).refresh(refreshDtoCaptor.capture());
+        final RefreshDto actualRefreshDto = refreshDtoCaptor.getValue();
+        assertEquals("r", actualRefreshDto.refreshToken());
     }
 }
