@@ -12,7 +12,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import org.fulib.fx.annotation.controller.Controller;
+import org.fulib.fx.annotation.controller.SubComponent;
 import org.fulib.fx.annotation.controller.Title;
 import org.fulib.fx.annotation.event.OnDestroy;
 import org.fulib.fx.annotation.event.OnInit;
@@ -37,10 +39,16 @@ public class LobbyController {
     @Inject
     EventListener eventListener;
 
+    @SubComponent
+    @Inject
+    UserComponent userComponent;
+
     @FXML
     Button joinButton;
     @FXML
     ListView<User> userList;
+    @FXML
+    VBox viewBox;
 
     private final ObservableList<User> users = FXCollections.observableArrayList();
 
@@ -70,6 +78,21 @@ public class LobbyController {
         joinButton.disableProperty().bind(userList.getSelectionModel().selectedItemProperty().isNull());
         userList.setItems(users);
         userList.setCellFactory(list -> new ComponentListCell<>(app, userComponentProvider));
+
+        userList.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue == null) {
+                viewBox.getChildren().remove(userComponent);
+            } else {
+                userComponent.setItem(newValue);
+                if (userComponent.getParent() == null) {
+                    viewBox.getChildren().add(userComponent);
+                }
+            }
+        });
+
+        // Alternative:
+        // viewBox.getChildren().add(userComponent);
+        // userComponent.visibleProperty().bind(userList.getSelectionModel().selectedItemProperty().isNotNull());
     }
 
     public void join() {

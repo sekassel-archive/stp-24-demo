@@ -37,22 +37,35 @@ class LobbyControllerTest extends ControllerTest {
     @Spy
     ImageCache imageCache;
     @Spy
-    Provider<UserComponent> userComponentProvider = new Provider<>() {
-        @Override
-        public UserComponent get() {
-            final UserComponent userComponent = new UserComponent();
-            userComponent.imageCache = imageCache;
-            return userComponent;
-        }
-    };
+    Provider<UserComponent> userComponentProvider = spyProvider(() -> {
+        final UserComponent component = new UserComponent();
+        component.imageCache = imageCache;
+        return component;
+    });
+    @InjectMocks
+    UserComponent userComponent;
 
     @InjectMocks
     LobbyController lobbyController;
 
     final Subject<Event<User>> subject = BehaviorSubject.create();
 
+    // TODO move to a test helper class
+    private static <T> Provider<T> spyProvider(Provider<T> base) {
+        //noinspection Anonymous2MethodRef,Convert2Lambda
+        return new Provider<>() {
+            @Override
+            public T get() {
+                return base.get();
+            }
+        };
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
+        // @InjectMocks bei lobbyController beachtet nicht andere @InjectMocks
+        lobbyController.userComponent = userComponent;
+
         Mockito.doReturn(Observable.just(List.of(
             new User("1", "Alice", null),
             new User("2", "Bob", null)
@@ -80,5 +93,7 @@ class LobbyControllerTest extends ControllerTest {
 
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(2, lobbyController.userList.getItems().size());
+
+        clickOn("Alice");
     }
 }

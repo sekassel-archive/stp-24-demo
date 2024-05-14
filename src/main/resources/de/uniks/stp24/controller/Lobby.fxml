@@ -7,8 +7,8 @@
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.uniks.stp24.controller.LobbyController">
     <center>
-        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-              styleClass="container,overlay-container">
+        <VBox fx:id="viewBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" styleClass="container,overlay-container">
             <children>
                 <ListView fx:id="userList" styleClass="overlay-container"/>
                 <Button fx:id="joinButton" mnemonicParsing="false" onAction="#join" text="join game"/>
