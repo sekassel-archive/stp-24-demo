@@ -43,6 +43,6 @@ public class BadControllerTest extends ControllerTest {
             DebugUtils.saveWindow(
                 stage,
                 () -> dir.resolve(getClass().getSimpleName() + " " + LocalTime.now() + ".png"),
-                null));
+                "\t"));
     }
 }

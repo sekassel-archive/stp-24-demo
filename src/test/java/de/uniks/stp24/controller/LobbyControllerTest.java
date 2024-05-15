@@ -37,11 +37,7 @@ class LobbyControllerTest extends ControllerTest {
     @Spy
     ImageCache imageCache;
     @Spy
-    Provider<UserComponent> userComponentProvider = spyProvider(() -> {
-        final UserComponent component = new UserComponent();
-        component.imageCache = imageCache;
-        return component;
-    });
+    Provider<UserComponent> userComponentProvider = spyProvider(() -> new UserComponent(imageCache));
     @InjectMocks
     UserComponent userComponent;
 

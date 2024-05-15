@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import org.fulib.fx.annotation.controller.Component;
+import org.fulib.fx.annotation.event.OnInit;
 import org.fulib.fx.constructs.listview.ReusableItemComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,12 +21,13 @@ public class UserComponent extends HBox implements ReusableItemComponent<User> {
     @FXML
     Text nameText;
 
-    @Inject
-    public ImageCache imageCache;
+    private final ImageCache imageCache;
 
     @Inject
-    public UserComponent() {
-
+    public UserComponent(
+        ImageCache imageCache
+    ) {
+        this.imageCache = imageCache;
     }
 
     @Override
