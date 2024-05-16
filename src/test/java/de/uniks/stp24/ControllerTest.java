@@ -10,9 +10,9 @@ import java.util.ResourceBundle;
 public class ControllerTest extends ApplicationTest {
 
     @Spy
-    public final App app = new App();
+    protected App app = new App();
     @Spy
-    protected final ResourceBundle resources = ResourceBundle.getBundle("de/uniks/stp24/lang/main", Locale.ROOT);
+    protected ResourceBundle resources = ResourceBundle.getBundle("de/uniks/stp24/lang/main", Locale.ROOT);
 
     protected Stage stage;
     protected TestComponent testComponent;
@@ -25,5 +25,14 @@ public class ControllerTest extends ApplicationTest {
         app.setComponent(testComponent);
         app.start(stage);
         stage.requestFocus();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        app.stop();
+        app = null;
+        stage = null;
+        testComponent = null;
     }
 }
