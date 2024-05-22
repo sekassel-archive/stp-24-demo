@@ -50,7 +50,7 @@ public class App extends FulibFxApp {
 
             // TODO add image/icon.png and uncomment
             setAppIcon(primaryStage);
-            // setTaskbarIcon();
+            setTaskbarIcon();
 
             autoRefresher().setup(Path.of("src/main/resources/de/uniks/stp24"));
 
@@ -77,7 +77,7 @@ public class App extends FulibFxApp {
 
         try {
             final Taskbar taskbar = Taskbar.getTaskbar();
-            final java.awt.Image image = ImageIO.read(App.class.getResource("image/icon.png"));
+            final java.awt.Image image = ImageIO.read(Main.class.getResource("icon.png"));
             taskbar.setIconImage(image);
         } catch (Exception ignored) {
         }
